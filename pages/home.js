@@ -6,10 +6,14 @@ import OndemandVideoSharpIcon from "@mui/icons-material/OndemandVideoSharp";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import Example from "../components/Header";
+import Head from "next/head";
 
 function Home() {
   return (
     <div className="space-y-10 relative">
+      <Head>
+        <title>LinkedIn</title>
+      </Head>
       <header className="flex justify-around items-center py-4">
         <div className="relative w-36 h-10">
           <Image src="http://rb.gy/vtbzlp" layout="fill" objectFit="contain" />
