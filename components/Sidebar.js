@@ -5,6 +5,7 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { signOut, useSession } from "next-auth/react";
 
 function Sidebar() {
+  const { data: session } = useSession();
   return (
     <div className="space-y-2 min-w-max max-w-lg">
       {/* top */}
@@ -16,8 +17,8 @@ function Sidebar() {
           <Image src="https://rb.gy/i26zak" layout="fill" priority />
         </div>
         <Avatar
-          //   onClick={signOut}
-          src="https://pbs.twimg.com/media/FQoCrgwacAEuujq?format=jpg"
+          onClick={signOut}
+          src={session?.user?.image}
           className="!h-14 !w-14 !border-2 !absolute !top-4 !cursor-pointer"
         />
         <div className="mt-5 py-4 space-x-0.5">
