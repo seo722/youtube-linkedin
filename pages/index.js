@@ -1,12 +1,19 @@
+import { AnimatePresence } from "framer-motion";
 import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { modalState, modalTypeState } from "../atoms/modalAtom";
 import Feed from "../components/Feed";
 import Header from "../components/Header";
+import Modal from "../components/Modal";
 import Sidebar from "../components/Sidebar";
 
 export default function Home({}) {
   const router = useRouter();
+  const [modalOpen, setModalOpen] = useRecoilState(modalState);
+  const [modalType, setModalType] = useRecoilState(modalTypeState);
+
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -30,6 +37,11 @@ export default function Home({}) {
         </div>
 
         {/* widgets */}
+        <AnimatePresence>
+          {modalOpen && (
+            <Modal handleClose={() => setModalOpen(false)} type={modalType} />
+          )}
+        </AnimatePresence>
       </main>
 
       {/* <button onClick={signOut}>sign out</button> */}
