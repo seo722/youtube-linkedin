@@ -7,9 +7,30 @@ import { handlePostState } from "../atoms/postAtom";
 function Form() {
   const [input, setInput] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
+  const [modalOpen, setModalOpen] = useRecoilState(modalState);
+  const { data: session } = useSession();
 
-  const uploadPost = (e) => {
+  const uploadPost = async (e) => {
     e.preventDefault();
+
+    const response = await fetch("/api/posts", {
+      method: "POST",
+      body: JSON.stringify({
+        input: input,
+        photoUrl: photoUrl,
+        username: session.user.name,
+        email: session.user.email,
+        userImg: session.user.image,
+        createdAt: new Date().toString(),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const responseData = await response.json();
+
+    setModalOpen(false);
   };
 
   return (
